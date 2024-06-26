@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Criar Evento</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cria_evento.css' %}">
+</head>
+<body>
+    <h1>Criar Evento</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Eventos</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lista_eventos.css' %}">
+</head>
+<body>
+    <h1>Eventos</h1>
+    <a href="{% url 'cria_evento' %}">Adicionar Novo Evento</a>
+    <ul>
+        {% for evento in eventos %}
+        <li>{{ evento.nome }} - {{ evento.data }} - {{ evento.local }}
+            <a href="{% url 'atualiza_evento' evento.id %}">Editar</a>
+            <a href="{% url 'deleta_evento' evento.id %}">Deletar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

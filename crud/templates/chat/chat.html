@@ -1,0 +1,72 @@
+<!-- templates/chat/chat.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat: {{ evento.nome }}</title>
+</head>
+<body>
+    <h1>Chat: {{ evento.nome }}</h1>
+    <div id="chat-messages">
+        {% for mensagem in mensagens %}
+            <p>{{ mensagem.autor.username }} ({{ mensagem.data_envio|date:"d/m/Y H:i" }}): {{ mensagem.conteudo }}</p>
+        {% endfor %}
+    </div>
+
+    <!-- Formulário para enviar nova mensagem -->
+    <form id="novaMensagemForm">
+        {% csrf_token %}
+        <input type="hidden" name="evento_id" value="{{ evento.id }}">
+        <label for="conteudo">Nova mensagem:</label>
+        <textarea id="conteudo" name="conteudo" required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById("novaMensagemForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let conteudo = document.getElementById("conteudo").value;
+            let evento_id = document.querySelector('input[name="evento_id"]').value;
+
+            fetch('/api/nova_mensagem/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),  // Função para obter o token CSRF
+                },
+                body: JSON.stringify({
+                    evento_id: evento_id,
+                    conteudo: conteudo,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Atualiza a página para exibir a nova mensagem
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Erro ao enviar mensagem:', error);
+            });
+        });
+
+        // Função para obter o token CSRF
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Procura pelo token CSRF
+                    if (cookie.startsWith(name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>

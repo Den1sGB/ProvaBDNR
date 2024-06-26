@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/styles/chat.css">  <!-- Caminho para chat.css -->
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Chat</h1>
+        <div class="messages-container" id="messages"></div>
+        <div class="input-container">
+            <input type="text" id="messageInput" placeholder="Digite sua mensagem">
+            <button id="sendButton">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('token');
+        const username = 'Você'; // Obtém o username do contexto do template engine
+        const ws = new WebSocket(`ws://${window.location.host}/ws/chat/${username}/?token=${token}`);
+
+        ws.onmessage = function(event) {
+            const messages = document.getElementById('messages');
+            const message = document.createElement('div');
+            message.classList.add('message'); // Adiciona a classe 'message' para estilização CSS
+            message.textContent = event.data;
+            messages.appendChild(message);
+            // Scroll automático para a última mensagem recebida
+            messages.scrollTop = messages.scrollHeight;
+        };
+
+        document.getElementById('sendButton').onclick = function() {
+            const input = document.getElementById('messageInput');
+            ws.send(input.value);
+            input.value = '';
+        };
+    </script>
+</body>
+</html>

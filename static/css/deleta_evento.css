@@ -1,0 +1,44 @@
+/* Estilos para deleta_evento.html */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+h1 {
+    color: #333;
+}
+p {
+    margin-bottom: 20px;
+}
+.action-links {
+    margin-top: 10px;
+}
+.action-links a {
+    text-decoration: none;
+    color: #007bff;
+    margin-left: 10px;
+}
+.action-links a:hover {
+    text-decoration: underline;
+}
+button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    background-color: #c82333;
+}
+@media (max-width: 768px) {
+    .action-links {
+        text-align: center;
+    }
+    button {
+        margin-top: 10px;
+    }
+}

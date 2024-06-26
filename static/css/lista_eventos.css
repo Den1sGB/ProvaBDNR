@@ -1,0 +1,42 @@
+/* Estilos para lista_eventos.html */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+h1 {
+    color: #333;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.action-links a {
+    text-decoration: none;
+    color: #007bff;
+    margin-left: 10px;
+}
+.action-links a:hover {
+    text-decoration: underline;
+}
+@media (max-width: 768px) {
+    li {
+        flex-direction: column;
+        text-align: center;
+    }
+    .action-links {
+        margin-top: 10px;
+    }
+}
